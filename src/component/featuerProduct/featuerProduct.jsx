@@ -3,7 +3,8 @@ import { getProduct } from "../../APIS/getProduct.js";
 import Loading from "../Loading/Loading.jsx";
 import Item from "../item/Item.jsx";
 
-function FeatuerProduct() {
+// eslint-disable-next-line react/prop-types
+function FeatuerProduct({arr}) {
     // Use array destructuring for useState
 
     let [loading, setLoading] = useState(false);
@@ -45,13 +46,15 @@ function FeatuerProduct() {
     }
 
     // Render the products
-    if (products.length) {
+
         return (
             <div className="row">
-                {products.map(prod => <Item prod={prod} key={prod._id}/>)}
+                {/* eslint-disable-next-line react/prop-types */}
+                { arr?.length ? arr.map(prod => <Item prod={prod} key={prod._id}/>)
+                    : products.map(prod => <Item prod={prod} key={prod._id}/>) }
             </div>
         );
-    }
+
 }
 
 export default FeatuerProduct;
