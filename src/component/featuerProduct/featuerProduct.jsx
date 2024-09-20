@@ -17,8 +17,7 @@ function FeatuerProduct({arr}) {
         try {
             let data = await getProduct();
             if (data?.data) {
-                setProducts(data.data);
-                console.log(data.data)
+                setProducts(data?.data);
                 setMsg('');
             } else {
                 setMsg("There is no data");
@@ -26,7 +25,7 @@ function FeatuerProduct({arr}) {
         } catch (error) {
             setMsg("Error fetching data");
         } finally {
-            setLoading(false); // Ensure loading state is updated in both success and failure cases
+            setLoading(false);
         }
     }
 

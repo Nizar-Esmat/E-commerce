@@ -2,8 +2,11 @@ import React, {useContext, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 import logo from "../../assets/finalProject assets/freshcart-logo.svg";
 import {AuthContext} from "../Authcontext/Authcontext.jsx";
+import useQuetyCart from "../../Hooks/useQuetyCart.jsx";
+import {getcartApi} from "../../APIS/addToCart.js";
 
 const Navbar = () => {
+    let { data, isLoading, isError, error } = useQuetyCart('getcartApi', getcartApi);
 
     let navigate = useNavigate();
     let {isLogged , setIsLogged} = useContext(AuthContext);
@@ -42,12 +45,8 @@ const Navbar = () => {
                                 Products
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/Cart" className="hover:text-green-400">
-                                Cart
-                            </NavLink>
-                        </li>
-                        <li>
+
+                            <li>
                             <NavLink to="/Brand" className="hover:text-green-400">
                                 Brand
                             </NavLink>
@@ -74,8 +73,16 @@ const Navbar = () => {
                     {isLogged ?
                         <ul className="flex space-x-6">
                             <li>
+                                <NavLink to="/Cart" className="hover:text-green-400 flex items-center">
+                                    <i className="fa-solid fa-cart-shopping"></i>
+                                    <span className="bg-green-500 text-white ml-2 px-2 py-1 rounded-full text-sm font-bold">{data?.numOfCartItems || 0}</span>
+                                </NavLink>
+                            </li>
+
+                            <li>
                                 <div className="flex items-center space-x-6">
-                                    <p onClick={logout} className="block hover:text-green-400 cursor-pointer">log out</p>
+                                    <p onClick={logout} className="block hover:text-green-400 cursor-pointer">log
+                                        out</p>
                                     <p className="placeholder-green-600 hover:text-green-400 "> {isLogged ?
                                         <p>Hi {isLogged.name}</p> : " "} </p>
                                 </div>
@@ -93,6 +100,7 @@ const Navbar = () => {
                                     Register
                                 </NavLink>
                             </li>
+
 
                         </ul>
                     }
@@ -130,11 +138,6 @@ const Navbar = () => {
                             </NavLink>
                             </li>
 
-                            <li>
-                            <NavLink to="/Categories" className="block hover:text-green-400">
-                            Categories
-                            </NavLink>
-                            </li>
 
                             <li>
                             <NavLink to="/Brand" className="block hover:text-green-400">
@@ -145,7 +148,7 @@ const Navbar = () => {
 
 
                             <li>
-                            <p onClick={logout}  className="block hover:text-green-400 cursor-pointer">log out</p>
+                            <div onClick={logout}  className="block hover:text-green-400 cursor-pointer">log out</div>
                             </li>
                             </ul>
                             :

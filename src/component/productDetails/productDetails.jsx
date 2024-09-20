@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { getOneProduct } from "../../APIS/getOneProduct.js";
 import { useParams } from "react-router-dom";
-import {getProductWithcatigory} from "../../APIS/getProduct.js";
+import { getProductWithcatigory } from "../../APIS/getProduct.js";
 import Item from "../item/Item.jsx";
 import Loading from "../Loading/Loading.jsx";
+import usemutationcart from "../../Hooks/usemutationcart.jsx";
+import {addToCartApi} from "../../APIS/addToCart.js";
+import {toast} from "react-toastify";
+import {data} from "autoprefixer";
+import {Helmet} from "react-helmet";
 
 function ProductDetails() {
+    let {mutate:addMutate, status ,data} = usemutationcart(addToCartApi)
+
+
+    if(status==='success')
+        toast.success(data?.data?.message)
+
+
     let [loading, setLoading] = useState(false);
     let [msg, setMsg] = useState('');
     let [product, setProduct] = useState(null);
     let [img, setImgUrl] = useState('');
     let [spasifc, setSpasifc] = useState(null);
 
+    const { id, catigory } = useParams();
+
+    // Mutation for adding a product to the cart
+
+
     function changeUrl(e) {
         setImgUrl(e.target.src);
     }
 
-    let { id,catigory } = useParams();
-// get the product
+    // Get the product details
     async function getOneProductApi() {
         setLoading(true);
         try {
@@ -35,8 +51,7 @@ function ProductDetails() {
         }
     }
 
-    //// get spasifc the product
-
+    // Get specific category products
     async function getProductWithcatigoryAPI() {
         setLoading(true);
         try {
@@ -56,35 +71,36 @@ function ProductDetails() {
 
     useEffect(() => {
         getOneProductApi();
-
     }, [id]);
-
-
-
-
 
     useEffect(() => {
         getProductWithcatigoryAPI();
-    }, []);
+    }, [catigory]);
 
     if (loading) {
-        return <Loading></Loading>;
+        return <Loading />;
     }
 
     if (msg) {
         return <div className="text-center py-10 text-red-500 font-bold">{msg}</div>;
     }
 
+
     return (
         product && (
             <div className="container mx-auto py-10">
+                <Helmet>
+                    <title>product compounent</title>
+                    <meta name="description" content="Helmet application" />
+                </Helmet>
+
                 <div className="row flex flex-col md:flex-row items-center gap-8">
                     {/* Image Section */}
                     <div className="md:w-1/3 w-full">
                         <div className="border rounded-lg shadow-lg overflow-hidden">
                             <img
                                 className="w-full h-full object-cover transition duration-500 ease-in-out transform hover:scale-105"
-                                src={img || product.imageCover}
+                                src={img || product?.imageCover}
                                 alt="Product"
                             />
                         </div>
@@ -130,14 +146,16 @@ function ProductDetails() {
                         </div>
 
                         {/* Add to Cart Button */}
-                        <button
-                            className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg">
-                            Add to Cart
+                        <button onClick={()=>{addMutate(product._id)}}
+
+                            className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg"
+                        >
+                          Add to Cart
                         </button>
                     </div>
                 </div>
 
-                <h2 className="text-center font-bold  text-green-500">related products</h2>
+                <h2 className="text-center font-bold text-green-500 mt-10">Related Products</h2>
 
                 <div className="row">
                     {spasifc?.map(i => <Item prod={i} key={i._id}></Item>)}

@@ -12,7 +12,7 @@ function MainSlider(props) {
         slidesToScroll: 1,
         arrows: false,
         autoplay: true,
-        autoplaySpeed: 200,
+        autoplaySpeed: 300,
     };
     return (
         <div className="row">

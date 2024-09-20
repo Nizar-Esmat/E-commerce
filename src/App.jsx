@@ -14,6 +14,9 @@ import Forget from "./component/forget/Forget.jsx";
 import ResetCode from "./component/resetCode/ResetCode.jsx";
 import NewPassword from "./component/NewPassword/NewPassword.jsx";
 import ProductDetails from "./component/productDetails/productDetails.jsx";
+import Allorders from "./component/allorders.jsx";
+
+
 
 function App() {
     let router = createBrowserRouter([
@@ -24,6 +27,7 @@ function App() {
                 {path: '/forget' , element :   <Forget/> },
                 {path: '/ResetCode' , element :   <ResetCode/> },
                 {path: '/NewPassword' , element :   <NewPassword/> },
+                {path: '/allorders' , element :   <Allorders/> },
                 {path: '/Products' , element : <ProtectedRoute><Products/></ProtectedRoute> },
                 {path: '/ProductDetails/:id/:catigory' , element : <ProtectedRoute><ProductDetails/></ProtectedRoute> },
                 {path: '/Cart' , element : <ProtectedRoute> <Cart/></ProtectedRoute> },

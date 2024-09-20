@@ -1,11 +1,12 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import FeatuerProduct from "../featuerProduct/featuerProduct.jsx";
 import { getCategories } from "../../APIS/getcatigory.js";
 import {getProductWithcatigory} from "../../APIS/getProduct.js";
 import Loading from "../Loading/Loading.jsx";
-import item from "../item/Item.jsx";
+import {Helmet} from "react-helmet";
 
-function Products(props) {
+function Products() {
     let [loading, setLoading] = useState(false);
     let [msg, setMsg] = useState('');
     let [Categories, setCategories] = useState([]);
@@ -23,6 +24,7 @@ function Products(props) {
             } else {
                 setMsg("There is no data");
             }
+            // eslint-disable-next-line no-unused-vars
         } catch (error) {
             setMsg("Error fetching data");
         } finally {
@@ -45,11 +47,16 @@ function Products(props) {
     async function getdata(id){
       let data  = await getProductWithcatigory(id)
         setOneCategories(data.data)
-        name = data.data.category.name;
+
 
     }
     return (
         <div className="container mx-auto py-10 px-4">
+            <Helmet>
+                <title>product compounent</title>
+                <meta name="description" content="Helmet application" />
+            </Helmet>
+
             {/* Responsive Categories List */}
             <ul className="flex flex-wrap sm:flex-row gap-4 justify-center sm:justify-start mb-10">
                 {Categories?.map((item, index) => (
