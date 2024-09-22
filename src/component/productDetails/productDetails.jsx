@@ -27,7 +27,7 @@ function ProductDetails() {
     const { id, catigory } = useParams();
 
     // Mutation for adding a product to the cart
-
+    let [wish , setWish] = useState(false);
 
     function changeUrl(e) {
         setImgUrl(e.target.src);
@@ -90,14 +90,25 @@ function ProductDetails() {
         product && (
             <div className="container mx-auto py-10">
                 <Helmet>
-                    <title>product compounent</title>
-                    <meta name="description" content="Helmet application" />
+                    <title>product details compounent</title>
+                    <meta name="description" content="Helmet application"/>
                 </Helmet>
 
                 <div className="row flex flex-col md:flex-row items-center gap-8">
                     {/* Image Section */}
                     <div className="md:w-1/3 w-full">
-                        <div className="border rounded-lg shadow-lg overflow-hidden">
+                        <div className="relative border rounded-lg shadow-lg overflow-hidden">
+                            <i
+                                onClick={() => {
+                                    setWish(!wish);
+                                }}
+                                className={`fa-2xl fa-heart absolute top-2 left-2 z-10 ${wish ? 'fa-solid text-red-500' : 'fa-regular text-gray-500'}`}
+                                style={{
+                                    padding: '8px',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                                    borderRadius: '50%'
+                                }}
+                            />
                             <img
                                 className="w-full h-full object-cover transition duration-500 ease-in-out transform hover:scale-105"
                                 src={img || product?.imageCover}
@@ -146,20 +157,23 @@ function ProductDetails() {
                         </div>
 
                         {/* Add to Cart Button */}
-                        <button onClick={()=>{addMutate(product._id)}}
+                        <button onClick={() => {
+                            addMutate(product._id)
+                        }}
 
-                            className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg"
+                                className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 shadow-lg"
                         >
-                          Add to Cart
+                            Add to Cart
                         </button>
                     </div>
                 </div>
 
                 <h2 className="text-center font-bold text-green-500 mt-10">Related Products</h2>
 
-                <div className="row">
+                <div className="row grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
                     {spasifc?.map(i => <Item prod={i} key={i._id}></Item>)}
                 </div>
+
             </div>
         )
     );

@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useQuetyCart from "../../Hooks/useQuetyCart.jsx";
 import { clearCartApi, getcartApi, removCartApi, updataCartAPI } from "../../APIS/addToCart.js";
 import Loading from "../Loading/Loading.jsx";
 import usemutationcart from "../../Hooks/usemutationcart.jsx";
 import { toast } from "react-toastify";
 import BasicModal from "../bascisModal.jsx";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 function Cart() {
 
+    // Fetch cart data
     let { data, isLoading, isError, error } = useQuetyCart('getcartApi', getcartApi);
 
+    // Mutation hooks for cart actions
     let { mutate: deletMutate, status: deletstatus } = usemutationcart(removCartApi);
     let { mutate: updataMutate, status: updatastatus } = usemutationcart(updataCartAPI);
     let { mutate: clearMutate, status: clearstatus } = usemutationcart(clearCartApi);
 
-    if (deletstatus === "success") {
-        toast.success("Removed successfully");
-    }
-    if (updatastatus === "success") {
-        toast.success("Updated successfully");
-    }
-    if (clearstatus === "success") {
-        toast.success("Cart cleared successfully");
-    }
+    // useEffect to handle success/error toast notifications
+    useEffect(() => {
+        if (deletstatus === "success") {
+            toast.success("Removed successfully");
+        }
+        if (updatastatus === "success") {
+            toast.success("Updated successfully");
+        }
+        if (clearstatus === "success") {
+            toast.success("Cart cleared successfully");
+        }
+    }, [deletstatus, updatastatus, clearstatus]);
 
-    if (isLoading ) {
+    // Loading state
+    if (isLoading) {
         return <Loading />;
     }
 
+    // Error state
     if (isError) {
         return <h2>{error.message}</h2>;
     }
@@ -36,7 +43,7 @@ function Cart() {
     return (
         <div className="my-5 container mx-auto p-4">
             <Helmet>
-                <title>cart compounent</title>
+                <title>Cart Component</title>
                 <meta name="description" content="Helmet application" />
             </Helmet>
 
@@ -51,7 +58,7 @@ function Cart() {
             {/* Cart Grid Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {data?.data?.products ? (
-                    data.data.products.map((item, index) => (
+                    data.data.products.map((item) => (
                         <div key={item._id}
                              className="bg-white p-4 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
                             <img src={item?.product.imageCover || 'fallback-image-url.jpg'}
@@ -70,13 +77,13 @@ function Cart() {
 
                             <div className="flex justify-between items-center space-x-2">
                                 <button
-                                    onClick={() => updataMutate({id: item?.product?._id, count: item?.count - 1})}
+                                    onClick={() => updataMutate({ id: item?.product?._id, count: item?.count - 1 })}
                                     className="bg-gray-200 p-2 rounded-full hover:bg-gray-300">
                                     -
                                 </button>
                                 <span>{item?.count}</span>
                                 <button
-                                    onClick={() => updataMutate({id: item?.product?._id, count: item?.count + 1})}
+                                    onClick={() => updataMutate({ id: item?.product?._id, count: item?.count + 1 })}
                                     className="bg-gray-200 p-2 rounded-full hover:bg-gray-300">
                                     +
                                 </button>
@@ -102,9 +109,8 @@ function Cart() {
             </button>
 
             {/* Payment Buttons */}
-
             <div className="flex justify-center space-x-4 mt-5">
-                <BasicModal cartId={data?.data._id} ></BasicModal>
+                <BasicModal cartId={data?.data._id}></BasicModal>
             </div>
         </div>
     );

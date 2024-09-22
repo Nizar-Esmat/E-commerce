@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { getProduct } from "../../APIS/getProduct.js";
 import Loading from "../Loading/Loading.jsx";
 import Item from "../item/Item.jsx";
+import useQuetyCart from "../../Hooks/useQuetyCart.jsx";
+import {getWishlistAPI} from "../../APIS/Wishlist.js";
 
 // eslint-disable-next-line react/prop-types
 function FeatuerProduct({arr}) {
+
+
     // Use array destructuring for useState
 
     let [loading, setLoading] = useState(false);

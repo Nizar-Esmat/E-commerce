@@ -23,7 +23,7 @@ createRoot(document.getElementById('root')).render(
     <QueryClientProvider client={queryClient}>
 <CounterContextProvider >
     <Authcontext>
-        <ToastContainer autoClose={600}></ToastContainer>
+        <ToastContainer autoClose={800}></ToastContainer>
         <ReactQueryDevtools initialIsOpen={false} />
 <App/>
     </Authcontext>

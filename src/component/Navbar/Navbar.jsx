@@ -51,6 +51,11 @@ const Navbar = () => {
                                 Brand
                             </NavLink>
                         </li>
+                            <li>
+                                <NavLink to="/WishList" className="hover:text-green-400">
+                                    WishList
+                                </NavLink>
+                            </li>
                     </ul>
                         :
                         " "
@@ -120,42 +125,48 @@ const Navbar = () => {
 
                         {isLogged ?
                             <ul className="p-4 space-y-4">
-                            <li>
-                                <NavLink to="/" className="block hover:text-green-400">
-                                    Home
-                                </NavLink>
-                            </li>
+                                <li>
+                                    <NavLink to="/" className="block hover:text-green-400">
+                                        Home
+                                    </NavLink>
+                                </li>
 
-                            <li>
-                                <NavLink to="/Products" className="block hover:text-green-400">
-                                    Products
-                                </NavLink>
-                            </li>
+                                <li>
+                                    <NavLink to="/Products" className="block hover:text-green-400">
+                                        Products
+                                    </NavLink>
+                                </li>
 
-                            <li>
-                            <NavLink to="/Cart" className="block hover:text-green-400">
-                            Cart
-                            </NavLink>
-                            </li>
-
-
-                            <li>
-                            <NavLink to="/Brand" className="block hover:text-green-400">
-                            Brand
-                            </NavLink>
-                            </li>
+                                <li>
+                                    <NavLink to="/Cart" className="block hover:text-green-400">
+                                        Cart
+                                    </NavLink>
+                                </li>
 
 
+                                <li>
+                                    <NavLink to="/Brand" className="block hover:text-green-400">
+                                        Brand
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/WishList" className="hover:text-green-400">
+                                        WishList
+                                    </NavLink>
+                                </li>
 
-                            <li>
-                            <div onClick={logout}  className="block hover:text-green-400 cursor-pointer">log out</div>
-                            </li>
+
+                                <li>
+                                    <div onClick={logout} className="block hover:text-green-400 cursor-pointer">log
+                                        out
+                                    </div>
+                                </li>
                             </ul>
                             :
-                                <ul className="p-4 space-y-4">
-                            <li>
-                            <NavLink to="/Login" className="block hover:text-green-400">
-                            Login
+                            <ul className="p-4 space-y-4">
+                                <li>
+                                    <NavLink to="/Login" className="block hover:text-green-400">
+                                    Login
                             </NavLink>
                             </li>
 
@@ -164,6 +175,7 @@ const Navbar = () => {
                             Register
                             </NavLink>
                             </li>
+
                                 </ul>
                         }
 

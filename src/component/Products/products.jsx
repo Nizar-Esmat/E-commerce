@@ -57,7 +57,7 @@ function Products() {
                 <meta name="description" content="Helmet application" />
             </Helmet>
 
-            {/* Responsive Categories List */}
+
             <ul className="flex flex-wrap sm:flex-row gap-4 justify-center sm:justify-start mb-10">
                 {Categories?.map((item, index) => (
                     <li

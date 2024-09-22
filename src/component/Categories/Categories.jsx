@@ -49,6 +49,9 @@ function Categories() {
         return <div className="text-center py-10 text-red-500 font-bold">{msg}</div>;
     }
 
+    if (categories.length === 0) {
+        return <div className="text-center py-10 text-gray-500 font-bold">No categories available</div>;
+    }
 
     return (
         <Slider {...settings}>
@@ -57,7 +60,8 @@ function Categories() {
                     <img
                         className="h-[200px] w-full object-cover"
                         src={category.image || 'fallback-image-url.jpg'} // Providing a fallback image
-                        alt={category.name}
+                        alt={category.name || 'Category image'} // Improved alt description
+                        loading="lazy" // Lazy loading for images
                     />
                 </div>
             ))}

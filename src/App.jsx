@@ -15,6 +15,7 @@ import ResetCode from "./component/resetCode/ResetCode.jsx";
 import NewPassword from "./component/NewPassword/NewPassword.jsx";
 import ProductDetails from "./component/productDetails/productDetails.jsx";
 import Allorders from "./component/allorders.jsx";
+import WishList from "./component/WishList.jsx";
 
 
 
@@ -32,6 +33,7 @@ function App() {
                 {path: '/ProductDetails/:id/:catigory' , element : <ProtectedRoute><ProductDetails/></ProtectedRoute> },
                 {path: '/Cart' , element : <ProtectedRoute> <Cart/></ProtectedRoute> },
                 {path: '/Brand' , element : <ProtectedRoute> <Brand/> </ProtectedRoute> },
+                {path: '/WishList' , element : <ProtectedRoute> <WishList/> </ProtectedRoute> },
                 {path: '/*' , element : <Notfound/> },
             ]
         }
@@ -39,11 +41,11 @@ function App() {
 
 
   return (
-    <>
+    <div >
 <RouterProvider router={router}>
 
 </RouterProvider>
-    </>
+    </div>
   )
 }
 
