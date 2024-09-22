@@ -16,4 +16,11 @@ export  async  function getProductWithcatigory(catigoryId){
     }catch (err){
         console.log(err?.message)
     }
+}export  async  function getProductWithBrandId(brandId){
+    try {
+        let {data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/products?brand=${brandId}`)
+        return data;
+    }catch (err){
+        console.log(err?.message)
+    }
 }

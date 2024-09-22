@@ -5,7 +5,7 @@ import Footer from "../Footer.jsx";
 
 function Layout(props) {
     return (
-        <div>
+        <div className="parent">
             <Navbar></Navbar>
 
 
